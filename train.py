@@ -120,7 +120,7 @@ class Graph:
                 tf.summary.image('train/mag_hat', tf.expand_dims(tf.transpose(self.Z[:1], [0, 2, 1]), -1))
 
             # Training Scheme
-            self.lr = learning_rate_decay(hp.lr, self.global_step)
+            self.lr = hp.lr
             self.optimizer = tf.train.AdamOptimizer(learning_rate=self.lr)
             tf.summary.scalar("lr", self.lr)
 
