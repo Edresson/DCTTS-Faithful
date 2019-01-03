@@ -121,7 +121,7 @@ class Graph:
 
             # Training Scheme
             self.lr = hp.lr
-            self.optimizer = tf.train.AdamOptimizer(learning_rate=self.lr)
+            self.optimizer = tf.train.AdamOptimizer(learning_rate=self.lr,beta1=hp.beta1,beta2=hp.beta2,epsilon=hp.epsilon)
             tf.summary.scalar("lr", self.lr)
 
             ## gradient clipping
