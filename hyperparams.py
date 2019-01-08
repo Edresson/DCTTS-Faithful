@@ -21,8 +21,7 @@ class Hyperparams:
     # Model
     r = 4 # Reduction factor. Do not change this.
     dropout_rate = 0
-    vocoder = 'RTISI-LA' # or 
-    #vocoder = 'griffin_lim'
+
     e = 128 # == embedding
     d = 256 # == hidden units of Text2Mel
     c = 512 # == hidden units of SSRN
@@ -32,18 +31,12 @@ class Hyperparams:
     data = "/home/edresson/Projetos-PTI/TCC/text-dataset/App/Base/TTS-Portuguese/"
     # data = "/data/private/voice/kate"
     language = 'pt' # or 'eng'
-    phoneme = True
-    if phoneme == False and language == 'pt':
-        test_data = 'phonetically-balanced-sentences.txt'
-    elif phoneme == True and language == 'pt':
-        test_data = 'phonetically-balanced-sentences-phoneme.txt'
-    else:
-        test_data = 'harvard_setences.txt'
+    
+    test_data = 'phonetically-balanced-sentences.txt'
 
     #vocab = "PE abcdefghijklmnopqrstuvwxyz'.?" # P: Padding, E: EOS. #english
     vocab = "PE abcdefghijklmnopqrstuvwxyzçãàáâêéíóôõúû"#abcdefghijklmnopqrstuvwxyzçãõâôêíîúûñáéó.?" # P: Padding, E: EOS. #portuguese
     #portugues falta acento no a :"abcdefghijklmnopqrstuvwxyzçãõâôêíîúûñáéó.?"
-    phoneme_vocab = "ˈoʧi.tulʊʤɪpaʒnsdk̃eɾvmzgɐ͂ɛxfbɣ,_ɔXqɲʃʎĩẽõhũŋcrɳ E"
     max_N = 180 # Maximum number of characters. default:180
     max_T = 210 # Maximum number of mel frames. default:210
 
@@ -52,7 +45,7 @@ class Hyperparams:
     beta2 = 0.9
     epsilon = 0.000006
     lr = 0.0002 #  learning rate.
-    logdir = "../savedir/logdir/LJ01"
-    sampledir = '../savedir/samples'
+    logdir = "logdir/LJ01"
+    sampledir = 'samples/'
     B = 16 # batch size
     num_iterations = 200000

@@ -23,35 +23,6 @@ from scipy import fftpack
 from hyperparams import Hyperparams as hp
 import tensorflow as tf
 
-
-def texts_to_phonemes(fpaths,texts,outputfile='texts-phoneme.csv',alphabet=False):
-    from PETRUS.g2p.g2p import G2PTranscriber
-    transcript = os.path.join(hp.data, outputfile)
-    if alphabet == True:
-        alphabet_list=[]
-        alpha=os.path.join(hp.data, 'phoneme-alphabet.csv')
-
-    transcript= codecs.open(transcript, 'w', 'utf-8')
-    for i in range(len(texts)):
-        words = texts[i].strip().lower().split(' ')
-        transcrito = [] 
-        for word in words:
-            g2p = G2PTranscriber(word, algorithm='silva')
-            transcription = g2p.transcriber()
-            transcrito.append(transcription)
-            if alphabet == True:
-                for caracter in transcription:
-                    if caracter not in alphabet_list:
-                        alphabet_list.append(caracter)
-
-        frase = str(fpaths[i])+'=='+"_".join(transcrito)+'\n'
-        transcript.write(frase)
-    if alphabet == True:
-        alphabet = codecs.open(alpha, 'w', 'utf-8')
-        for i in alphabet_list:
-            alphabet.write(i)
-
-
 def get_spectrograms(fpath):
     '''Parse the wave file in `fpath` and
     Returns normalized melspectrogram and linear spectrogram.
@@ -116,11 +87,8 @@ def spectrogram2wav(mag):
     mag = (np.clip(mag, 0, 1) * hp.max_db) - hp.max_db + hp.ref_db
     # to amplitude
     mag = np.power(10.0, mag * 0.05)
-    if hp.vocoder == 'griffin_lim':
-        # wav reconstruction
-        wav = griffin_lim(mag**hp.power)
-    elif hp.vocoder == 'RTISI-LA' : # RTISI-LA
-        wav = iterate_invert_spectrogram(mag**hp.power)
+
+    wav = griffin_lim(mag**hp.power)
         
     # de-preemphasis
     wav = signal.lfilter([1], [1, -hp.preemphasis], wav)
